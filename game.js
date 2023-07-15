@@ -3,6 +3,7 @@ var randomColors = [];
 var userClikedColors = [];
 var level = 0;
 var started = false;   //biar ngk ke trigger ketika pencet tombol
+var randomFinish = false;
 
 
 
@@ -19,12 +20,13 @@ $(document).on("keydown", function(){
 
 // Cek klik
 $(".btn").on("click", function(){
-    var userChosenColor = this.id;
-    userClikedColors.push(userChosenColor);
-    playSound(userChosenColor);
-    animatePress(userChosenColor);
-    checkAnswer(userClikedColors.length - 1);
-
+    if(randomFinish){
+        var userChosenColor = this.id;
+        userClikedColors.push(userChosenColor);
+        playSound(userChosenColor);
+        animatePress(userChosenColor);
+        checkAnswer(userClikedColors.length - 1);
+    }
 })
 
 
@@ -47,6 +49,8 @@ function nextSquare (){
 
     //reset
     userClikedColors = [];
+
+    randomFinish = true;
 
 }
 
@@ -103,4 +107,5 @@ function startOver(){
     level = 0;
     randomColors = [];
     started = false;
+    randomFinish = false;
 }
